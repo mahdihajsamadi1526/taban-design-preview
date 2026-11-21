@@ -90,16 +90,18 @@ a:hover .arrow{transform:translateX(-5px)}
 
 /* ---------- نشانگر بخش‌ها ---------- */
 .rail{position:fixed;left:22px;top:50%;transform:translateY(-50%);z-index:30;display:flex;flex-direction:column;gap:12px}
-.rail a{display:flex;align-items:center;gap:10px;flex-direction:row-reverse;justify-content:flex-end}
+.rail a{position:relative;display:block;width:14px;height:14px}
+.rail i{position:absolute;left:0;top:0}
 .rail i{width:10px;height:10px;border-radius:50%;border:2px solid var(--g2);background:#fff;transition:.3s var(--ease)}
-.rail span{font-size:12.5px;font-weight:700;color:var(--g);background:#fff;padding:2px 10px;border-radius:999px;box-shadow:var(--sh);opacity:0;transform:translateX(-6px);transition:.3s var(--ease);white-space:nowrap}
+.rail span{position:absolute;left:24px;top:50%;margin-top:-13px;font-size:12.5px;font-weight:700;color:var(--g);background:#fff;padding:2px 10px;border-radius:999px;box-shadow:var(--sh);opacity:0;transform:translateX(-6px);transition:.3s var(--ease);white-space:nowrap}
 .rail a:hover span,.rail a.on span{opacity:1;transform:none}
 .rail a.on i{background:var(--o);border-color:var(--o);transform:scale(1.35)}
 
 /* ---------- هیرو ---------- */
 .hero{background:var(--g);color:#fff;padding:170px 0 0;overflow:hidden}
-.hero::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;left:-180px;top:-200px;border:70px solid var(--o);opacity:.9;pointer-events:none}
-.hero::after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;left:120px;bottom:150px;border:2px dashed rgba(255,255,255,.25);pointer-events:none}
+.hero::before{content:"";position:absolute;width:220px;height:220px;border-radius:50%;left:-190px;top:-30px;border:44px solid var(--o);pointer-events:none}
+.hero::after{content:"";position:absolute;width:140px;height:140px;border-radius:50%;left:30%;top:100px;border:2px dashed rgba(255,255,255,.28);pointer-events:none}
+.hero .wrap{z-index:1}
 .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
 .hero h1{color:#fff;font-size:clamp(34px,5vw,64px);margin:8px 0 18px;min-height:2.95em}
 .hero h1 .typed{color:var(--o)}
@@ -342,6 +344,57 @@ footer ul a:hover{color:var(--o)}
 .bot-f button{width:44px;height:44px;border-radius:50%;background:var(--o);display:grid;place-items:center}
 .bot-f svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 
+
+/* کارت‌های چرخان: با + همان‌جا جزئیات باز می‌شود، بدون رفتن به صفحه‌ی دیگر (روا) */
+.flip{perspective:1400px;min-height:380px}
+.flip-in{position:relative;height:100%;min-height:380px;transition:transform .8s var(--ease);transform-style:preserve-3d}
+.flip.open .flip-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--r);padding:28px;display:flex;flex-direction:column;background:#fff;border:1px solid var(--g-s);box-shadow:var(--sh)}
+.face.back{transform:rotateY(180deg);background:var(--g);color:#fff;border-color:var(--g)}
+.face.back h3{color:#fff}.face.back .ticks{margin:16px 0}.face.back .ticks li::before{background-color:rgba(255,255,255,.14)}
+.face .art{height:110px;display:grid;place-items:center;margin:4px 0 12px;background:var(--o-t);border-radius:14px}
+.face .art svg{width:120px;height:90px;fill:none;stroke:var(--g);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.face .art svg .o{stroke:var(--o)}
+.face p{margin:6px 0 14px}
+.face .more{color:var(--o);font-weight:800;margin-top:auto;margin-bottom:12px}
+.flip-btn{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:10px;font-weight:800;color:var(--g)}
+.back .flip-btn{margin-top:0;color:#fff}
+.back .flip-btn .pm{background:var(--o);transform:rotate(180deg)}.back .flip-btn .pm::before{background:#fff}.back .flip-btn .pm::after{transform:translate(-50%,-50%) rotate(0);background:#fff}
+.flip.feat .front{background:var(--o);border-color:var(--o);color:#fff}
+.flip.feat .front h3,.flip.feat .front .flip-btn{color:#fff}
+.flip.feat .front .tag{background:rgba(255,255,255,.22);color:#fff}
+.flip.feat .front .art{background:rgba(255,255,255,.16)}.flip.feat .front .art svg{stroke:#fff}.flip.feat .front .art svg .o{stroke:var(--g)}
+.flip.feat .front .pm{background:#fff}
+/* بخش ثابت با متن عوض‌شونده هنگام اسکرول (روا) */
+.pin{padding:0;background:var(--o);color:#fff}
+.pin-track{height:320vh;position:relative}
+.pin-stick{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden}
+.pin-stick::before{content:"";position:absolute;width:640px;height:640px;border-radius:50%;border:2px solid rgba(255,255,255,.25);left:-200px;top:50%;margin-top:-320px}
+.pin-stick::after{content:"";position:absolute;width:380px;height:380px;border-radius:50%;background:var(--g);left:-60px;top:50%;margin-top:-190px;opacity:.95}
+.pin-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;width:100%;position:relative;z-index:1}
+.pin .eyebrow{color:#fff}.pin .eyebrow::before{background:#fff}
+.pin-slides{position:relative;min-height:260px}
+.pin-slide{position:absolute;inset:0;opacity:0;transform:translateY(-40px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.pin-slide.on{opacity:1;transform:none}
+.pin-slide.past{opacity:0;transform:translateY(40px)}
+.pin-slide h2{color:#fff;font-size:clamp(30px,4vw,52px)}
+.pin-slide p{font-size:19px;max-width:520px;color:#fff}
+.pin-num{font-size:clamp(90px,14vw,190px);font-weight:900;line-height:1;color:#fff;text-align:center;position:relative}
+.pin-num small{display:block;font-size:18px;font-weight:700;margin-top:8px}
+.pin-dots{display:flex;gap:8px;margin-top:22px}
+.pin-dots i{width:34px;height:5px;border-radius:5px;background:rgba(255,255,255,.35);transition:.4s}
+.pin-dots i.on{background:#fff;width:56px}
+@media (max-width:900px){.pin-grid{grid-template-columns:1fr;gap:10px}.pin-stick::after{width:220px;height:220px;left:50%;margin-left:-110px;top:14%;margin-top:0}.pin-stick::before{display:none}.pin-num{font-size:110px;order:-1}.pin-slides{min-height:210px}.flip,.flip-in{min-height:360px}}
+
+.consult{padding:70px 0}
+.c-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:24px}
+.c-head h2{margin:0}
+.c-head .contact-lines{margin:0;display:flex;gap:22px;flex-wrap:wrap}
+.form.cform{grid-template-columns:1.1fr 1.1fr 1fr 1.2fr auto;align-items:end;padding:22px}
+.form.cform .btn{height:52px;width:auto;padding:0 30px}
+.fine-w{font-size:13.5px;color:#E3E3E3;margin-top:12px}
+@media (max-width:900px){.form.cform{grid-template-columns:1fr 1fr}.form.cform .btn{grid-column:1/-1;width:100%}}
+@media (max-width:560px){.form.cform{grid-template-columns:1fr}}
 /* ورود نرم */
 .rv{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .rv.in{opacity:1;transform:none}
@@ -353,6 +406,7 @@ footer ul a:hover{color:var(--o)}
   .rail{display:none}
 }
 @media (max-width:900px){
+  .hero::before{width:200px;height:200px;border-width:36px;left:-170px;top:auto;bottom:-40px}.hero::after{display:none}
   section{padding:80px 0}
   .hero{padding-top:130px}
   .hero-grid,.split,.faq-grid,.risk-box{grid-template-columns:1fr}
@@ -434,6 +488,7 @@ footer ul a:hover{color:var(--o)}
 <nav class="rail" aria-label="بخش‌های صفحه">
   <a href="#top" data-r="top"><i></i><span>شروع</span></a>
   <a href="#services" data-r="services"><i></i><span>سبدگردانی</span></a>
+  <a href="#why" data-r="why"><i></i><span>چرا تابان</span></a>
   <a href="#funds" data-r="funds"><i></i><span>صندوق‌ها</span></a>
   <a href="#perf" data-r="perf"><i></i><span>عملکرد</span></a>
   <a href="#growth" data-r="growth"><i></i><span>رشد از ۱۳۹۱</span></a>
@@ -498,29 +553,80 @@ footer ul a:hover{color:var(--o)}
       <p class="lead">هر بخش یک کار را انجام می‌دهد. جزئیات بیشتر در صفحه‌ی همان خدمت و در وبلاگ است.</p>
     </div>
     <div class="cards">
-      <article class="card feat rv">
-        <span class="tag">از ۵ میلیارد تومان</span>
-        <div class="ic"><svg viewBox="0 0 32 32"><rect x="5" y="9" width="22" height="17" rx="3"/><path d="M11 9V7a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2M5 16h22"/></svg></div>
-        <h3>سبدگردانی اختصاصی</h3>
-        <p>یک مدیر سبد، دارایی‌هایت را بر اساس هدف و میزان ریسک‌پذیری خودت مدیریت می‌کند.</p>
-        <a class="more" href="#consult">درخواست سبد <span class="arrow">←</span></a>
+      <article class="flip rv  feat">
+        <div class="flip-in">
+          <div class="face front">
+            <span class="tag">از ۵ میلیارد تومان</span>
+            <div class="art"><svg viewBox="0 0 120 90"><rect x="22" y="24" width="76" height="54" rx="8"/><path d="M44 24v-7a5 5 0 0 1 5-5h22a5 5 0 0 1 5 5v7M22 46h76"/><circle cx="60" cy="46" r="6" class="o"/></svg></div>
+            <h3>سبدگردانی اختصاصی</h3>
+            <p>یک مدیر سبد، فقط برای تو.</p>
+            <button class="flip-btn" aria-label="جزئیات سبدگردانی اختصاصی" aria-expanded="false"><span class="pm"></span><span>جزئیات</span></button>
+          </div>
+          <div class="face back" aria-hidden="true">
+            <h3>سبدگردانی اختصاصی</h3>
+            <ul class="ticks"><li>ترکیب دارایی بر اساس هدف و ریسک‌پذیری خودت</li><li>گزارش دوره‌ای و دسترسی آنلاین</li><li>قرارداد روشن با سقف ریسک مشخص</li></ul>
+            <a class="more" href="#consult" tabindex="-1">درخواست سبد <span class="arrow">←</span></a>
+            <button class="flip-btn" aria-label="بستن جزئیات" tabindex="-1"><span class="pm"></span><span>بستن</span></button>
+          </div>
+        </div>
       </article>
-      <article class="card rv d1">
-        <span class="tag">کمتر از ۵ میلیارد تومان</span>
-        <div class="ic"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="11"/><path d="M16 5v11l8 6"/></svg></div>
-        <h3>صندوق‌های سرمایه‌گذاری</h3>
-        <p>با مبلغ کم وارد شو و هر وقت خواستی خارج شو. صندوق روشنا اولین صندوق ماست.</p>
-        <a class="more" href="#funds">دیدن صندوق‌ها <span class="arrow">←</span></a>
+      <article class="flip rv d1 ">
+        <div class="flip-in">
+          <div class="face front">
+            <span class="tag">کمتر از ۵ میلیارد تومان</span>
+            <div class="art"><svg viewBox="0 0 120 90"><circle cx="60" cy="46" r="32"/><path d="M60 14v32l24 16" class="o"/><path d="M60 46L32 62"/></svg></div>
+            <h3>صندوق‌های سرمایه‌گذاری</h3>
+            <p>با مبلغ کم شروع کن.</p>
+            <button class="flip-btn" aria-label="جزئیات صندوق‌های سرمایه‌گذاری" aria-expanded="false"><span class="pm"></span><span>جزئیات</span></button>
+          </div>
+          <div class="face back" aria-hidden="true">
+            <h3>صندوق‌های سرمایه‌گذاری</h3>
+            <ul class="ticks"><li>ورود و خروج هر وقت خواستی</li><li>مدیریت حرفه‌ای با سیاست روشن</li><li>صندوق مختلط روشنا، اولین صندوق تابان</li></ul>
+            <a class="more" href="roshana.html" tabindex="-1">صفحه‌ی روشنا <span class="arrow">←</span></a>
+            <button class="flip-btn" aria-label="بستن جزئیات" tabindex="-1"><span class="pm"></span><span>بستن</span></button>
+          </div>
+        </div>
       </article>
-      <article class="card rv d2">
-        <span class="tag">برای شرکت‌ها</span>
-        <div class="ic"><svg viewBox="0 0 32 32"><path d="M5 27h22M8 27V11l8-5 8 5v16M13 27v-7h6v7"/></svg></div>
-        <h3>تأمین مالی شرکت‌ها</h3>
-        <p>طراحی و اجرای روش‌های تأمین مالی از بازار سرمایه برای شرکت‌ها.</p>
-        <a class="more" href="#clients">مشتریان حقوقی <span class="arrow">←</span></a>
+      <article class="flip rv d2 ">
+        <div class="flip-in">
+          <div class="face front">
+            <span class="tag">برای شرکت‌ها</span>
+            <div class="art"><svg viewBox="0 0 120 90"><path d="M16 80h88M26 80V40l34-22 34 22v40"/><path d="M50 80V58h20v22" class="o"/><path d="M40 46h8M72 46h8"/></svg></div>
+            <h3>تأمین مالی شرکت‌ها</h3>
+            <p>پول لازم، از بازار سرمایه.</p>
+            <button class="flip-btn" aria-label="جزئیات تأمین مالی شرکت‌ها" aria-expanded="false"><span class="pm"></span><span>جزئیات</span></button>
+          </div>
+          <div class="face back" aria-hidden="true">
+            <h3>تأمین مالی شرکت‌ها</h3>
+            <ul class="ticks"><li>طراحی روش تأمین مالی متناسب با شرکت</li><li>انتشار اوراق و همراهی تا پایان</li><li>معرفی مشتریان حقوقی در همین صفحه</li></ul>
+            <a class="more" href="#clients" tabindex="-1">مشتریان حقوقی <span class="arrow">←</span></a>
+            <button class="flip-btn" aria-label="بستن جزئیات" tabindex="-1"><span class="pm"></span><span>بستن</span></button>
+          </div>
+        </div>
       </article>
     </div>
     <div class="next rv"><a class="btn btn-o" href="#funds">قدم بعد: صندوق‌ها <span class="arrow">←</span></a></div>
+  </div>
+</section>
+
+<!-- ۲ب. بخش ثابت: صفحه می‌ایستد و با اسکرول متن عوض می‌شود (روا) -->
+<section class="pin" id="why" data-sec>
+  <div class="pin-track" id="pinTrack">
+    <div class="pin-stick">
+      <div class="wrap pin-grid">
+        <div>
+          <span class="eyebrow">چرا تابان</span>
+          <div class="pin-slides" id="pinSlides">
+            <div class="pin-slide on"><h2>مجوز رسمی، گزارش شفاف</h2><p>زیر نظر سازمان بورس کار می‌کنیم و هر دوره گزارش کامل سبد را می‌گیری.</p></div>
+            <div class="pin-slide"><h2>ریسک، از روز اول روشن</h2><p>سقف ریسک هر سبد پیش از شروع نوشته می‌شود و همان رعایت می‌شود.</p></div>
+            <div class="pin-slide"><h2>مدیر سبد حرفه‌ای</h2><p>تیمی با سال‌ها تجربه در بازار سرمایه، سرمایه‌ات را دنبال می‌کند.</p></div>
+            <div class="pin-slide"><h2>همیشه در دسترس</h2><p>سامانه‌ی آنلاین و مشاور اختصاصی؛ هر سؤالی داری، جوابش نزدیک است.</p></div>
+          </div>
+          <div class="pin-dots" id="pinDots"><i class="on"></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="pin-num" aria-hidden="true"><span id="pinN">۱</span><small>از ۴</small></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -597,11 +703,11 @@ footer ul a:hover{color:var(--o)}
   </div>
 </section>
 
-<!-- ۶. سامانه‌ی آنلاین (کارنما) -->
+<!-- ۶. سامانه‌ی آنلاین (الهام از کاریزما؛ فضای پیشنهادی، امکان فنی بعداً بررسی می‌شود) -->
 <section class="portal" id="portal" data-sec>
   <div class="wrap split">
     <div class="rv">
-      <span class="eyebrow">سامانه‌ی آنلاین</span>
+      <span class="eyebrow">سامانه‌ی آنلاین · طرح پیشنهادی</span>
       <h2>دارایی‌ات را هر لحظه ببین</h2>
       <p class="lead">بعد از شروع، در سامانه‌ی تابان همه‌چیز شفاف جلوی چشمت است.</p>
       <ul class="ticks">
@@ -739,34 +845,25 @@ footer ul a:hover{color:var(--o)}
   </div>
 </section>
 
-<!-- ۱۲. فرم درخواست مشاوره روی صفحه‌ی اصلی (روا) -->
+<!-- ۱۲. فرم درخواست مشاوره روی صفحه‌ی اصلی (روا)، ولی جمع‌وجور: یک ردیف، جای کم -->
 <section class="consult" id="consult" data-sec>
-  <div class="wrap split">
-    <div class="rv">
-      <span class="eyebrow">مشاوره‌ی رایگان</span>
-      <h2>شماره‌ات را بگذار، ما تماس می‌گیریم</h2>
-      <p class="lead">کمتر از یک دقیقه وقت می‌گیرد. مشاور تابان در اولین ساعت کاری تماس می‌گیرد.</p>
+  <div class="wrap">
+    <div class="c-head rv">
+      <div><span class="eyebrow">مشاوره‌ی رایگان</span><h2>شماره‌ات را بگذار، ما تماس می‌گیریم</h2></div>
       <div class="contact-lines">
-        <div><i><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-3 2a11 11 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></i>تلفن: ۰۲۱-۰۰۰۰۰۰۰۰</div>
+        <div><i><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-3 2a11 11 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></i><bdi dir="ltr">۰۲۱-۰۰۰۰۰۰۰۰</bdi></div>
         <div><i><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></i>info@tabanam.com</div>
       </div>
     </div>
-    <form class="form rv d1" id="cform" novalidate>
-      <label>نام و نام خانوادگی<input name="n" autocomplete="name" required></label>
-      <label>شماره‌ی موبایل<input name="p" inputmode="tel" autocomplete="tel" placeholder="۰۹۱۲۰۰۰۰۰۰۰" required></label>
-      <div class="full"><span style="font-weight:700;font-size:14.5px">مبلغ تقریبی سرمایه</span>
-        <div class="radios" style="margin-top:6px">
-          <label><input type="radio" name="a" value="1" checked><span>کمتر از ۵ میلیارد</span></label>
-          <label><input type="radio" name="a" value="2"><span>۵ تا ۲۰ میلیارد</span></label>
-          <label><input type="radio" name="a" value="3"><span>بیشتر از ۲۰ میلیارد</span></label>
-        </div>
-      </div>
+    <form class="form cform rv d1" id="cform" novalidate>
+      <label>نام<input name="n" autocomplete="name" required></label>
+      <label>موبایل<input name="p" inputmode="tel" autocomplete="tel" placeholder="۰۹۱۲۰۰۰۰۰۰۰" required></label>
+      <label>مبلغ تقریبی<select name="a"><option>کمتر از ۵ میلیارد</option><option>۵ تا ۲۰ میلیارد</option><option>بیشتر از ۲۰ میلیارد</option></select></label>
       <label>موضوع<select name="t"><option>سبدگردانی اختصاصی</option><option>صندوق روشنا</option><option>تأمین مالی شرکت</option><option>سؤال دیگر</option></select></label>
-      <label>زمان تماس<select name="w"><option>صبح</option><option>عصر</option><option>فرقی ندارد</option></select></label>
-      <div class="full"><button class="btn btn-o" type="submit">ثبت درخواست مشاوره</button></div>
-      <p class="fine full">با ثبت درخواست، فقط برای همین مشاوره با تو تماس می‌گیریم.</p>
+      <button class="btn btn-o" type="submit">ثبت درخواست</button>
       <div class="form-ok" id="cok" role="status"><b>درخواستت ثبت شد</b>مشاور تابان به‌زودی تماس می‌گیرد. (نمونه‌ی طراحی؛ فرم به جایی ارسال نمی‌شود)</div>
     </form>
+    <p class="fine-w rv">کمتر از یک دقیقه وقت می‌گیرد. فقط برای همین مشاوره تماس می‌گیریم.</p>
   </div>
 </section>
 </main>
@@ -777,7 +874,7 @@ footer ul a:hover{color:var(--o)}
       <div><img src="taban-logo.png" alt="سبدگردان تابان" width="150" height="50" style="margin-bottom:12px"><p style="font-size:14.5px">شرکت سبدگردان تابان، دارای مجوز از سازمان بورس و اوراق بهادار.</p></div>
       <div><h4>خدمات</h4><ul><li><a href="#services">سبدگردانی اختصاصی</a></li><li><a href="#funds">صندوق‌ها</a></li><li><a href="roshana.html">صندوق مختلط روشنا</a></li><li><a href="#clients">تأمین مالی شرکت‌ها</a></li></ul></div>
       <div><h4>راهنما</h4><ul><li><a href="#blog">وبلاگ</a></li><li><a href="#faq">پرسش و پاسخ</a></li><li><a href="#risk">هشدار ریسک</a></li><li><a href="#portal">ورود به سامانه</a></li></ul></div>
-      <div><h4>تماس</h4><ul><li>تلفن: ۰۲۱-۰۰۰۰۰۰۰۰</li><li>info@tabanam.com</li><li><a href="#consult">درخواست مشاوره</a></li></ul></div>
+      <div><h4>تماس</h4><ul><li>تلفن: <bdi dir="ltr">۰۲۱-۰۰۰۰۰۰۰۰</bdi></li><li>info@tabanam.com</li><li><a href="#consult">درخواست مشاوره</a></li></ul></div>
     </div>
     <div class="f-risk"><span>سرمایه‌گذاری با ریسک همراه است و بازده گذشته تضمینی برای آینده نیست.</span><span>نسخه‌ی پیشنهادی طراحی · عددها نمونه‌اند</span></div>
   </div>
@@ -856,7 +953,7 @@ const po=new IntersectionObserver(es=>{if(es[0].isIntersecting){$('#perfBox').cl
  const q=[];let v=100;let seed=7;const rnd=()=>{seed=(seed*9301+49297)%233280;return seed/233280};
  yr.forEach((y,yi)=>seasons.forEach((s,si)=>{if(y===1404&&si>2)return;const r=(rnd()*14-3.2)/100;const prev=v;v=v*(1+r);q.push({y,s,v,chg:(v/prev-1)*100})}));
  const yearly=yr.map(y=>{const qs=q.filter(p=>p.y===y);const last=qs[qs.length-1];const firstPrev=q.indexOf(qs[0])?q[q.indexOf(qs[0])-1].v:100;return{y,v:last.v,chg:(last.v/firstPrev-1)*100}});
- const svg=$('#gChart'),W=1000,H=400,P=30;const maxV=Math.max(...q.map(p=>p.v))*1.06;
+ const svg=$('#gChart'),W=Math.round(svg.getBoundingClientRect().width)||1000,H=Math.round(svg.getBoundingClientRect().height)||400,P=W<600?16:30;svg.setAttribute('viewBox',`0 0 ${W} ${H}`);const step=W<600?3:2;const maxV=Math.max(...q.map(p=>p.v))*1.06;
  const X=(i,n)=>P+i*(W-2*P)/(n-1),Yp=val=>H-P-(val-60)/(maxV-60)*(H-2*P);
  const path=pts=>pts.map((p,i)=>(i?'L':'M')+X(i,pts.length).toFixed(1)+' '+Yp(p.v).toFixed(1)).join(' ');
  const yPts=[{v:100},...yearly];
@@ -867,17 +964,17 @@ const po=new IntersectionObserver(es=>{if(es[0].isIntersecting){$('#perfBox').cl
   <g clip-path="url(#gc)">
    <path id="gAreaY" d="${path(yPts)} L${W-P} ${H-P} L${P} ${H-P}Z" fill="url(#ga)"/>
    <path id="gLineY" d="${path(yPts)}" fill="none" stroke="#FF6600" stroke-width="4" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
-   <g id="gQ" opacity="0">${q.map((p,i)=>{const x=X(i,q.length),h=Math.abs(p.chg)*6;return `<rect x="${x-3}" width="6" y="${p.chg>=0?H-P-h:H-P}" height="${h}" fill="${p.chg>=0?'#FF6600':'#707070'}" opacity=".35"/>`}).join('')}
+   <g id="gQ" opacity="0">${q.map((p,i)=>{const x=X(i,q.length),h=Math.abs(p.chg)*(H/66);const bw=Math.max(2,(W-2*P)/q.length*.5);return `<rect x="${x-bw/2}" width="${bw}" y="${p.chg>=0?H-P-h:H-P}" height="${h}" fill="${p.chg>=0?'#FF6600':'#707070'}" opacity=".35"/>`}).join('')}
     <path d="${path(q)}" fill="none" stroke="#595959" stroke-width="2.4" vector-effect="non-scaling-stroke"/></g>
   </g>
   <circle id="gDot" r="7" fill="#FF6600" stroke="#fff" stroke-width="3"/>
-  ${yr.filter((y,i)=>i%2===1||y===1404).map(y=>{const i=yr.indexOf(y)+1;return `<text x="${X(i,yPts.length)}" y="${H-6}" font-size="15" text-anchor="middle" fill="#707070" font-family="Vazirmatn">${fa(y)}</text>`}).join('')}
+  ${yr.filter((y,i)=>i%step===step-1||y===1404).map(y=>{const i=yr.indexOf(y)+1;return `<text x="${X(i,yPts.length)}" y="${H-6}" font-size="${W<600?12:15}" text-anchor="middle" fill="#707070" font-family="Vazirmatn">${fa(y)}</text>`}).join('')}
 `;
  const track=$('#gTrack'),gcr=$('#gcr'),dot=$('#gDot'),gQ=$('#gQ');
  function upd(){const r=track.getBoundingClientRect();const tot=r.height-innerHeight;let p=Math.min(1,Math.max(0,-r.top/tot));if(reduce)p=1;
   $('#gProg').style.width=(p*100)+'%';
   const A=.55;
-  if(p<A){const k=p/A;gcr.setAttribute('width',P+k*(W-2*P)+2);gQ.setAttribute('opacity',0);$('#gLineY').setAttribute('opacity',1);$('#gAreaY').setAttribute('opacity',1);
+  if(p<A){const k=p/A;gcr.setAttribute('width',X(Math.round(k*(yPts.length-1)),yPts.length)+2);gQ.setAttribute('opacity',0);$('#gLineY').setAttribute('opacity',1);$('#gAreaY').setAttribute('opacity',1);
    const i=Math.round(k*(yPts.length-1));const pt=yPts[i];dot.setAttribute('cx',X(i,yPts.length));dot.setAttribute('cy',Yp(pt.v));
    $('#gLabel').textContent=i?'پایان سال '+fa(yearly[i-1].y)+' · سالانه':'شروع ۱۳۹۱';$('#gVal').firstChild.nodeValue=fa(Math.round(pt.v))+' ';$('#gChg').textContent=i?pct(yearly[i-1].chg)+' در سال':'';
    $('#gmY').classList.add('on');$('#gmQ').classList.remove('on')}
@@ -886,6 +983,18 @@ const po=new IntersectionObserver(es=>{if(es[0].isIntersecting){$('#perfBox').cl
    $('#gLabel').textContent=pt.s+' '+fa(pt.y)+' · سه‌ماهه';$('#gVal').firstChild.nodeValue=fa(Math.round(pt.v))+' ';$('#gChg').textContent=pct(pt.chg)+' در این فصل';
    $('#gmQ').classList.add('on');$('#gmY').classList.remove('on')}}
  addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();})();
+
+
+/* کارت‌های چرخان */
+$$('.flip').forEach(f=>f.querySelectorAll('.flip-btn').forEach(b=>b.onclick=()=>{const o=!f.classList.contains('open');f.classList.toggle('open',o);
+ f.querySelector('.front .flip-btn').setAttribute('aria-expanded',o);f.querySelector('.back').setAttribute('aria-hidden',!o);
+ f.querySelectorAll('.back a,.back button').forEach(x=>x.tabIndex=o?0:-1);if(o)f.querySelector('.back .flip-btn').focus({preventScroll:true})}));
+
+/* بخش ثابت با متن عوض‌شونده */
+(()=>{const tr=$('#pinTrack'),sl=$$('.pin-slide'),dots=$$('#pinDots i');let cur=-1;
+ function upd(){const r=tr.getBoundingClientRect();const p=Math.min(.999,Math.max(0,-r.top/(r.height-innerHeight)));const i=Math.floor(p*sl.length);
+  if(i===cur)return;cur=i;sl.forEach((s,k)=>{s.classList.toggle('on',k===i);s.classList.toggle('past',k<i)});dots.forEach((d,k)=>d.classList.toggle('on',k===i));$('#pinN').textContent=fa(i+1)}
+ addEventListener('scroll',upd,{passive:true});upd();})();
 
 /* بازشوها */
 $$('.acc-btn').forEach(b=>b.onclick=()=>{const it=b.parentElement;const o=!it.classList.contains('open');it.classList.toggle('open',o);b.setAttribute('aria-expanded',o)});
