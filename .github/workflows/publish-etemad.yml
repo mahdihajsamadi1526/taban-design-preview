@@ -1,0 +1,32 @@
+name: publish-etemad
+# Publishes etemad-fund-sim.html from a one-off hub link; the file is accepted only if its SHA-256 matches.
+on:
+  push:
+    paths: ['.github/workflows/publish-etemad.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+env:
+  SRC_URL: https://sorted-strips-certain-multi.trycloudflare.com/d7ea9e9677b9430b9257465e318590fb/etemad-fund-sim.html
+  SHA256: 23190d701263078bd6e8f2951bd5e6d80c658ef97f6647b98878aa49abb1cf19
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: download and verify
+        run: |
+          curl -sSfL --retry 4 --retry-delay 5 -o etemad-fund-sim.html "$SRC_URL"
+          echo "$SHA256  etemad-fund-sim.html" | sha256sum -c -
+      - name: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add etemad-fund-sim.html
+          git diff --cached --quiet || git commit -m "Publish etemad-fund-sim.html (Etemad Fund Simulator v1)"
+          git push
+      - name: pages build
+        run: gh api -X POST repos/${{ github.repository }}/pages/builds || true
+        env:
+          GH_TOKEN: ${{ github.token }}
