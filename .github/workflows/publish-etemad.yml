@@ -9,7 +9,7 @@ permissions:
   pages: write
 env:
   SRC_URL: https://paris-pathology-city-null.trycloudflare.com/k7f3q9x2m8w4c1v6b5n0/etemad-fund-sim.html
-  SHA256: 1b05e923d93051cd58be209db84a9930506328936b54ac92a7f9762ce0ded24a
+  SHA256: 1d6d44473cf31bb4bfbecdda9ef3c8005c65a93d2413f0235f3ce2c2563de975
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -24,7 +24,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add etemad-fund-sim.html
-          git diff --cached --quiet || git commit -m "Publish etemad-fund-sim.html (v1.1: full market watch, 3715 symbols)"
+          git diff --cached --quiet || git commit -m "Publish etemad-fund-sim.html (v1.1: full market watch, 3715 symbols, favicon)"
           git push
       - name: pages build
         run: gh api -X POST repos/${{ github.repository }}/pages/builds || true
